@@ -55,13 +55,11 @@ class Men:
                 return
         self.fullness -= 10
 
-
     def __str__(self):
         if self.life:
             self.days += 1
             if self.house.mud > 50:
                 self.happyness -= 10
-                print('грязновато становится. уже {}'.format(self.house.mud))
                 print(f'грязновато становится. уже {self.house.mud}')
                 oprint('----------------------', 'red')
             return 'Я {} {} - сытость {}, счастья {}'.format(self.role, self.name, self.fullness, self.happyness)
@@ -164,10 +162,10 @@ class Wife(Men):
         if self.house.money > 70:
             self.house.food += 70
             self.house.money -= 70
-            total_food +=70
+            total_food += 70
         else:
             self.house.food += self.house.money
-            total_food +=self.house.money
+            total_food += self.house.money
             self.house.money = 0
 
         print('{} сегодня ходила в пятёрочку и затарилась едой'.format(self.name))
@@ -215,7 +213,6 @@ for day in range(1, 366):
     print(masha)
     print(home)
 print(masha.name, 'купила {} шуб'.format(fur_coat))
-print('Всего съедено пельменей - {}кг'.format(total_food-home.food))
+print('Всего съедено пельменей - {}кг'.format(total_food - home.food))
 print('Всего дней {}  {} гнил на работе и заработал {} деревянных'.format(working_days, serge.name, total_money))
 print("Всего {} дней {} провела с шваброй и вывезла {}кг грязи".format(cleaning_days, masha.name, total_mud))
-
