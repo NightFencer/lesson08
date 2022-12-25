@@ -193,6 +193,22 @@ class Wife(Men):
         print('{} весь день убиралась в доме'.format(self.name))
         cleaning_days += 1
         pass
+class Cat:
+
+    def __init__(self):
+        pass
+
+    def act(self):
+        pass
+
+    def eat(self):
+        pass
+
+    def sleep(self):
+        pass
+
+    def soil(self):
+        pass
 
 
 home = House()
