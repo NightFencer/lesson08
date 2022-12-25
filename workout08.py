@@ -12,10 +12,11 @@ class House:
         self.money = 100
         self.food = 50
         self.mud = 0
+        self.cats_food=30
 
     def __str__(self):
         self.mud += 5
-        return 'В доме денег: {}  еды в холодильнике: {} грязи:{}'.format(self.money, self.food, self.mud)
+        return 'В доме денег: {},  еды в холодильнике: {},  для кота: {}, грязи:{}'.format(self.money, self.food, self.cats_food,self.mud)
         pass
 
 
@@ -160,7 +161,8 @@ class Wife(Men):
     def shopping(self):
         global total_food
         if self.house.money > 70:
-            self.house.food += 70
+            self.house.food += 50
+            self.house.cats_food+=20
             self.house.money -= 70
             total_food += 70
         else:
@@ -195,25 +197,66 @@ class Wife(Men):
         pass
 class Cat:
 
-    def __init__(self):
+    def __init__(self,name):
+        self.name = name
+        self.fullness=30
+        self.life =True
+        self.house = home
         pass
+    def __str__(self):
+        if self.life:
+            return f'я {self.name} сытость:{self.fullness}'
+        else:
+            return f'{self.name} давно закопан за баней'
 
     def act(self):
+        if self.fullness<10:
+            self.life=False
+            return
+
+        if self.life:
+            dice = randint(1,3)
+            if self.fullness<20:
+                self.eat()
+            else:
+                if dice ==1:
+                    self.sleep()
+                elif dice==2:
+                    self.eat()
+                else:
+                    self.soil()
+        self.fullness -=10
+
+
         pass
 
     def eat(self):
+        if self.house.cats_food>0:
+            self.fullness +=20
+            self.house.cats_food -=5
+            print(f'{self.name} жрал свою кошачью еду')
+        else:
+            print(f'{self.name} хотел пожрать, но не нашел')
+
         pass
 
     def sleep(self):
+        #self.fullness -=10
+        print(f'{self.name} сегодня дрых')
         pass
 
     def soil(self):
+        #self.fullness -= 10
+        self.house.mud +=5
+        print(f'{self.name} сегодня драл обои')
         pass
 
 
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
+cat1 = Cat(name='Ржавая тварь')
+cat2 = Cat(name='Упырь')
 fur_coat = 0
 total_food = 0
 total_mud = 0
@@ -225,8 +268,12 @@ for day in range(1, 366):
 
     serge.act()
     masha.act()
+    cat1.act()
+    cat2.act()
     print(serge)
     print(masha)
+    print(cat1)
+    print(cat2)
     print(home)
 print(masha.name, 'купила {} шуб'.format(fur_coat))
 print('Всего съедено пельменей - {}кг'.format(total_food - home.food))
